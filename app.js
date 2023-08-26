@@ -6,7 +6,7 @@ const cors = require('cors');
 const { expressjwt: jwt } = require("express-jwt");
 const jsonwebtoken = require("jsonwebtoken");
 const { errorHandler } = require("./middleware/error.middleware.js");
-const { requiresTOTP } = require("./middleware/totp.middleware.js");
+const { requiresExtraAuthToken } = require("./middleware/extraauth.middleware.js");
 
 const JWT_SECRET = "ssshh! super secret!";
 
@@ -62,14 +62,14 @@ app.get('/sayHello', (req, res) => {
   res.send({ message: `Hello ${req.query.to} - from ExtraAuth demostration server API` });
 });
 
-// Requires Authorization header with Bearer JWT and X-Extra-Auth-Totp token
-app.get('/sayHelloTOTP', requiresTOTP, (req, res) => {
-  res.send({ message: `Hello ${req.query.to} - from ExtraAuth demostration server API with TOTP` });
+// Requires Authorization header with Bearer JWT and X-Extra-Auth-Token
+app.get('/sayHelloWithToken', requiresExtraAuthToken, (req, res) => {
+  res.send({ message: `Hello ${req.query.to} - from ExtraAuth demostration server API using ExtaAuth token generator/validator` });
 });
 
-// Requires Authorization header with Bearer JWT and X-Extra-Auth-Totp token
-app.get('/pingTOTP', requiresTOTP, (req, res) => {
-  res.send({ message: `Pong - from ExtraAuth demostration server API with TOTP - ${new Date()}` });
+// Requires Authorization header with Bearer JWT and X-Extra-Auth-Token
+app.get('/pingWithToken', requiresExtraAuthToken, (req, res) => {
+  res.send({ message: `Pong - from ExtraAuth demostration server API using ExtaAuth token generator/validator - ${new Date()}` });
 });
 
 app.use(errorHandler);
