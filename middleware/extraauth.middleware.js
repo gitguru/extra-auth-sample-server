@@ -18,9 +18,9 @@ const getAuthorizationToken = (req) => {
  * @param {*} req 
  */
 const getExtraAuthToken = (token_validator, req) => {
-    const totp = req.header(token_validator.getExtraAuthTokenHeaderName());
-    if (totp && totp.length) {
-        return totp;
+    const extra_auth_token = req.header(token_validator.getExtraAuthTokenHeaderName());
+    if (extra_auth_token && extra_auth_token.length) {
+        return extra_auth_token;
     } else {
         throw new Error(`${token_validator.getExtraAuthTokenHeaderName()} header not present.`);
     }
