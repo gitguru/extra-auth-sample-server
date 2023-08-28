@@ -39,11 +39,11 @@ const requiresExtraAuthToken = (req, res, next) => {
     token_validator.digits = 6;
     token_validator.period = 60;
     // token_validator.algorithm = "SHA-512"; // SHA-512 is the default
-    
-    if (token_validator.validate_token(getAuthorizationToken(req), getExtraAuthToken(token_validator, req)) === false) {
-        const status = 400;
-        const message = "Invalid ExtraAuth token.";
-        console.error("Invalid ExtraAuth token given", req.headers);
+
+    if (token_validator.validate_token(getExtraAuthToken(token_validator, req), getAuthorizationToken(req)) === false) {
+        const status = 403;
+        const message = "Forbidden. Invalid ExtraAuth token.";
+        console.error("Invalid ExtraAuth token given. See request headers:\n", req.headers);
         res.status(status).json({ status, message });
         return;
     } 
