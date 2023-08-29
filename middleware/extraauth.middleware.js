@@ -1,4 +1,4 @@
-const { ExtraAuthTokenValidator } = require("@agagguturu/extra-auth-totp-validator");
+const { ExtraAuthTokenValidator } = require("@agagguturu/extra-auth-token-validator");
 
 /**
  * Extract Bearer token from request headers
